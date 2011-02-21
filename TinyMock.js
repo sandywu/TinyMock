@@ -1,5 +1,5 @@
 /**
- * TinyMock - Mini Native MockTools
+ * TinyMock - Mini Native XHR Mock
  * @Author Sandy
  * @Param request {string} - the Request URL need Mocked
  * @Param response {string} - the Response JSON String
