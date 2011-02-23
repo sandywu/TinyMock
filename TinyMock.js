@@ -54,6 +54,10 @@ var TinyMock = (function() {
 			'readyState': 4,
 			'open': mockedOpen,		
 			'send': mockedSend,
+			'abort': NOOP,
+			'setRequestHeader': NOOP,
+			'getResponseHeader': NOOP,
+			'getAllResponseHeaders': NOOP,
 			'onreadystatechange': NOOP,
 			'onload': NOOP
 		}
@@ -66,7 +70,7 @@ var TinyMock = (function() {
 	}
 
 	function addRequest(req, json) {
-		queryRequest( req ) ? void('Sandy HoHo') : (jsonPool[ req ] = json);
+		queryRequest( req ) ? void('WooHoo') : (jsonPool[ req ] = json);
 	}
 
 	(function __init__() {
