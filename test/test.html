@@ -6,10 +6,83 @@
  <script src="http://code.jquery.com/jquery-latest.js"> </script>
  <script type="text/javascript" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>
  <script type="text/javascript" src="../TinyMock.js"></script>
- <script type="text/javascript">
+ <script type="text/javascript">	
 
-	//Coming Sooooooon.
+	module('Mock Disabled', {
+		'setup': function() {
+			TinyMock.enabled = false;
+			url = window.location.href;
+			xhr = new XMLHttpRequest;
+			xhr.open('get', url, true);
+		},
+		'teardown': function() {
+			xhr.onload = null;
+		}
+	});
 
+	test('XHR Attribute Test', function() {
+		try {xhr.readyState = 4;}catch(e) {}
+		equal(xhr.readyState, 1, 'ReadyState should be readonly');
+		equal(xhr.responseText, '', 'ResponseText should be empty');
+	});
+
+	asyncTest('XHR Processing Test', function() {
+		xhr.send(null);
+		xhr.onload = function() {
+			equal(xhr.readyState, 4, 'ReadyState should be Number 4');
+			equal(xhr.status, 0, 'Status should be Number 0');
+			start();
+		}
+	});
+
+	module('Mock Enabled', {
+		'setup': function() {
+			TinyMock.enabled = true;
+			route = '/api/?key=login';
+			json = {
+				'userName': 'Sandy',
+				'age': 23,
+				'metaData': {
+					'favorite':['panty', 'stocking', 'homoti', 'nanasuzuki'],
+					'tag': 'jerk'
+				}
+			};
+			TinyMock(route, json);
+			xhr = new XMLHttpRequest;
+			xhr.open('get', route, true);
+		},
+		'teardown': function() {
+			xhr.onreadystatechange = null
+		}
+	});
+	
+	test('XHR Route Test', function() {
+		raises(function(){
+			xhr.open('get', '/undefined-route', true);
+		}, 'Must thorw Error');
+	});
+
+	test('XHR Attribute Test', function() {
+		xhr.readyState = 4;
+		equal(xhr.readyState, 4, 'ReadyState should be writable');
+		equal(xhr.responseText, undefined, 'ResponseText should be undefined');
+	});
+
+	asyncTest('XHR Processing Test', function() {
+		xhr = new XMLHttpRequest;
+		xhr.open('get', route, true);
+		xhr.onreadystatechange = function() {
+			equal(xhr.readyState, 4, 'ReadyState should be Number 4');
+			equal(xhr.responseText, JSON.stringify(json), 'RespnoseText should be equal to $json');
+			start();
+		};
+		xhr.send(null);
+
+	});
+
+	module('API Test');
+	//todo
+	
  </script>
 </head>
 <body>
