@@ -21,7 +21,9 @@
 	});
 
 	test('XHR Attribute Test', function() {
-		try {xhr.readyState = 4;}catch(e) {}
+		try {
+			xhr.readyState = 4;
+		}catch(e) {}
 		equal(xhr.readyState, 1, 'ReadyState should be readonly');
 		equal(xhr.responseText, '', 'ResponseText should be empty');
 	});
@@ -43,7 +45,7 @@
 				'userName': 'Sandy',
 				'age': 23,
 				'metaData': {
-					'favorite':['panty', 'stocking', 'homoti', 'nanasuzuki'],
+					'favorite':['panty', 'stocking', 'hitomi', 'nanasuzuki'],
 					'tag': 'jerk'
 				}
 			};
@@ -59,7 +61,7 @@
 	test('XHR Route Test', function() {
 		raises(function(){
 			xhr.open('get', '/undefined-route', true);
-		}, 'Must thorw Error');
+		}, 'Must thorw Can\'t find Route Error');
 	});
 
 	test('XHR Attribute Test', function() {
