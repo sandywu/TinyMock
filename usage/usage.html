@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Tiny Mock Usage</title>
+<script type="text/javascript" src="../TinyMock.js"></script>
+</head>
+<body>
+<script type="text/javascript">
+
+var route = '/api/your_timeline';
+
+var timelineJSON = {
+	'created_at': "Tue Nov 30 14:34:35 +0800 2010",
+	'text': "this message is mocked",
+	'truncated': false,
+	'annotations': [
+		"panty",
+		"stocking",
+		"hitomi",
+		"nanasuzuki",
+		"hideson",
+		"matsumoto"
+	],
+	'geo': null,
+	'favorited': false,
+	'source': null
+};
+
+
+
+TinyMock.enabled = true;
+TinyMock(route, timelineJSON);
+
+
+function getMessage() {
+	var xhr = new XMLHttpRequest;
+	console.log(xhr);
+	xhr.open('GET', '/api/your_timeline', false);
+	xhr.onload = function() {
+		var data = JSON.parse(xhr.responseText);
+		yourHandler(data);
+	}
+	xhr.send(null);
+}
+
+function yourHandler(data) {
+	console.log(data);
+	//do something
+}
+
+window.onload = function() {
+	getMessage();
+}
+
+</script>
+</body>
+</html>
+
+
