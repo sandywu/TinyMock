@@ -43,7 +43,7 @@ var TinyMock = (function() {
 		xhr.responseText = xhr.__data__;
 		
 		[xhr.onreadystatechange, xhr.onload].forEach(function(fn) {
-			isFunction(fn) ? _wrap(fn)() : void('WooHoo');
+			isFunction(fn) && fn !== NOOP ? _wrap(fn)() : void('WooHoo');
 		});
 	}
 
